@@ -7,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 // import Slider from '@react-native-community/slider';
 // params
-import { useGlobalSearchParams } from "expo-router";
+import { useGlobalSearchParams, router } from "expo-router";
 // icons
 import { AntDesign } from "@expo/vector-icons";
 // icons
@@ -25,8 +25,6 @@ import { Colors } from "@/constants/Colors";
 import Header from "@/components/Header";
 
 const PodcastDetail = () => {
-	// context
-	const { router } = useStoreContext();
 	// params
 	const { param }: any = useGlobalSearchParams();
 	// parse the 'video' params
@@ -61,6 +59,7 @@ const PodcastDetail = () => {
 			>
 				<Header
 					title={selectedPodcast?.name}
+					backMethod={()=>router.replace('/podcast')}
 					headerRight={null}
 				/>
 

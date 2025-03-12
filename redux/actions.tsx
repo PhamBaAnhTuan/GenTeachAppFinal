@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Dispatch } from "@reduxjs/toolkit";
+import { Dispatch, ThunkAction } from "@reduxjs/toolkit";
 import { ToastAndroid } from "react-native";
 import Constants from "expo-constants";
 
@@ -32,13 +32,16 @@ export const signInAction = (username: string, password: string, resetAuth: () =
             payload: response.data
          })
          rememberUser ? console.log('Remember user!') : resetAuth();
+         
       } catch (error: any) {
-         console.log('SIGN IN ERROR: ', error.response.data.error);
-         ToastAndroid.show(error.response.data.error, ToastAndroid.SHORT);
+         console.log('SIGN IN ERROR: ', error.response.data.error || 'An error occurred');
+         ToastAndroid.show(error.response.data.error || 'Sign in failed!', ToastAndroid.SHORT);
          resetAuth();
          setLoading(false);
+      } finally {
+         setLoading(false);
       }
-      setLoading(false);
+      console.log('signin')
    };
 }
 
@@ -56,7 +59,7 @@ export const signUpAction = (username: string, password: string, resetAuth: () =
       }
       try {
          setLoading(true);
-         const response = await axios.post(`${API_URL}/user/users/signup/`,
+         const response = await axios.post(`${API_URL}/user/signup/`,
             {
                username,
                password
@@ -75,8 +78,9 @@ export const signUpAction = (username: string, password: string, resetAuth: () =
          console.log('SIGN UP ERROR: ', msg);
          ToastAndroid.show(msg, ToastAndroid.SHORT);
          // resetAuth();
+      } finally {
+         setLoading(false);
       }
-      setLoading(false);
    }
 }
 

@@ -34,14 +34,16 @@ const MainLayout = () => {
     if (isInApp !== isAuthenticated) {
       router.replace(targetRoute);
     }
-    // dispatch(getAction('video/', 'VIDEO'))
-    // dispatch(getAction('shop/product/', 'PRODUCT'))
-    // dispatch(getAction('shop/category/', 'CATEGORY'))
-    // dispatch(getAction('chat/', 'EXPERT'))
-    // dispatch(getAction('study/topic/', 'TOPIC'))
-    // dispatch(getAction('study/course/', 'COURSE'))
-    // dispatch(getAction('podcast/', 'PODCAST'))
-  }, [isAuthenticated, router, dispatch])
+    if (user) {
+      dispatch(getAction('video/', 'VIDEO'))
+      dispatch(getAction('shop/product/', 'PRODUCT'))
+      dispatch(getAction('shop/category/', 'CATEGORY'))
+      dispatch(getAction('chat/', 'EXPERT'))
+      dispatch(getAction('study/topic/', 'TOPIC'))
+      dispatch(getAction('study/course/', 'COURSE'))
+      dispatch(getAction('podcast/', 'PODCAST'))
+    }
+  }, [isAuthenticated, dispatch])
   return (
     <>
       <Slot />

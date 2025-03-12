@@ -1,7 +1,8 @@
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 // context
 import { useStoreContext } from '@/context/Context';
 // icons
@@ -16,13 +17,24 @@ import { deleteAction } from '@/redux/actions';
 
 const VideoListScreen = () => {
    // context
-   const { router, useRedux, dispatch, data, setData } = useStoreContext();
+   const { useRedux, dispatch } = useStoreContext();
    // redux
    const { user, accessToken, video } = useRedux;
    // handle remove video
+   const [data, setData]:any = useState({});
+   const [isRemoving, setIsRemoving] = useState(false);
+   useEffect(() => {
+      if (isRemoving && data?.id) {
+         handleRemoveVideo();
+         setIsRemoving(false);
+      }
+
+   }, [data, isRemoving]);
    const handleRemoveVideo = () => {
-      Alert.alert('Remove this video', 'Are you sure?', [
-         { text: 'No', onPress: () => {}, style: 'cancel' },
+      Alert.alert('Remove this video', `Are you sure to remove ${data?.caption}?`, [
+         { text: 'No', onPress: () => {
+            setData({})
+         }, style: 'cancel' },
          {
             text: 'Yes', onPress: () => {
                dispatch(deleteAction('video', 'VIDEO', data.id, data.caption, accessToken));
@@ -30,7 +42,7 @@ const VideoListScreen = () => {
          },
       ])
    }
-   const log = () => console.log(data);
+   const log = () => console.log('data: ', data);
    return (
       <SafeAreaView style={{ flex: 1 }}>
          <LinearGradient
@@ -41,22 +53,23 @@ const VideoListScreen = () => {
          >
             <Header
                title='Video List'
+               backMethod={()=> router.replace('/profile')}
                headerRight={null}
             />
 
             <ScrollView showsVerticalScrollIndicator={false}>
                <View style={styles.videoContainer}>
-                  {video.map((vid: any, index: number) => (
+                  {video.map((vid: any) => (
                      <ListItems
-                        key={index}
+                        key={vid.id}
                         delete={() => {
-                           setData(video[index]),
-                           handleRemoveVideo()
+                           setData(vid),
+                           setIsRemoving(true)
                         }}
                         info={() => router.push(
                            {
                               pathname: '/video/videoDetail',
-                              params: { param: JSON.stringify(video[index]) }
+                              params: { param: JSON.stringify(vid) }
                            }
                         )}
                         icon={'home'}

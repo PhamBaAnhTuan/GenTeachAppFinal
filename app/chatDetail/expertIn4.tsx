@@ -2,22 +2,18 @@ import { Dimensions, Image, Platform, ScrollView, StatusBar, StyleSheet, Text, T
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 // icons
 import { AntDesign, Ionicons, Feather, Entypo, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 // components
 import SettingCard from '@/components/home/SettingCard';
 import Item from '@/components/chat/Item';
-// context
-import { useStoreContext } from '@/context/Context';
 import Header from '@/components/Header';
 // colors
 import { Colors } from '@/constants/Colors';
 
 
 const ExpertIn4 = () => {
-   // context
-   const { router } = useStoreContext();
    // params
    const { param }: any = useGlobalSearchParams();
    // parse the 'video' params
@@ -42,6 +38,7 @@ const ExpertIn4 = () => {
 
             <Header
                title={selectedExpert?.name}
+               backMethod={()=>router.back()}
                headerRight={null}
             />
 

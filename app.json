@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "GenTeachApp",
-    "slug": "GenTeachApp",
-    "version": "1.0.0",
+    "name": "GenTeach",
+    "slug": "GenTeach",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -13,21 +13,22 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/background/logo2.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.tuanpham03.GenTeachApp"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/background/logo2.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/background/logo2.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
@@ -38,7 +39,13 @@
       "typedRoutes": true
     },
     "extra": {
-      "API_URL": "http://192.168.93.143:8000"
+      "API_URL": "http://172.16.0.90:8000",
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e56f4b64-d6b1-4a5a-9b03-2d7b475f2da4"
+      }
     }
   }
 }

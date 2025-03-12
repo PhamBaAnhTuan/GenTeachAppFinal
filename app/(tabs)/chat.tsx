@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Platform, useColorScheme, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 // context
 import { useStoreContext } from '@/context/Context';
 // color
@@ -12,7 +13,7 @@ import ExpertCard from '@/components/chat/ExpertCard';
 
 export default function ChatScreen() {
   // context
-  const { useRedux, router } = useStoreContext();
+  const { useRedux } = useStoreContext();
   // redux
   const { expert } = useRedux;
   return (
@@ -36,12 +37,12 @@ export default function ChatScreen() {
 
             <View style={styles.expertCardContainer}>
               <ScrollView horizontal={true}>
-                {expert.map((item: any, index: number) => (
+                {expert.map((item: any) => (
                   <ExpertCard
-                    key={index}
+                    key={item.id}
                     onPress={() => router.push({
                       pathname: '/chatDetail',
-                      params: { param: JSON.stringify(expert[index]) }
+                      params: { param: JSON.stringify(item) }
                     })}
                     img={item.img ? { uri: item.img } : require('../../assets/images/icon.png')}
                     name={item.name}
@@ -63,12 +64,12 @@ export default function ChatScreen() {
 
             <View style={styles.expertCardContainer}>
               <ScrollView horizontal={true}>
-                {expert.map((item: any, index: number) => (
+                {expert.map((item: any) => (
                   <ExpertCard
-                    key={index}
+                    key={item.id}
                     onPress={() => router.push({
                       pathname: '/chatDetail',
-                      params: { param: JSON.stringify(expert[index]) }
+                      params: { param: JSON.stringify(item) }
                     })}
                     img={item.img ? { uri: item.img } : require('../../assets/images/icon.png')}
                     name={item.name}

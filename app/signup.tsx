@@ -6,6 +6,7 @@ import {
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 // context
 import { useStoreContext } from '@/context/Context';
 // actions
@@ -14,6 +15,7 @@ import { signInAction, signOutAction, signUpAction } from '@/redux/actions';
 import { Fontisto } from '@expo/vector-icons';
 // components
 import Input from '@/components/form/Input';
+import InputPassword from '@/components/form/InputPassword';
 import Button from '@/components/form/Button';
 // colors
 import { Colors } from '@/constants/Colors';
@@ -21,7 +23,7 @@ import { Colors } from '@/constants/Colors';
 const signup = () => {
    // context
    const {
-      useRedux, dispatch, router,
+      useRedux, dispatch,
       email, userName, password, setEmail, setUserName, setPassword, resetAuth,
       loading, setLoading
    } = useStoreContext();
@@ -59,10 +61,9 @@ const signup = () => {
                   value={userName}
                   handleTextChange={(text: string) => setUserName(text)}
                />
-               <Input
+               <InputPassword
                   title='Password'
                   keyboardType={'password'}
-                  secureTextEntry={true}
                   value={password}
                   handleTextChange={(text: string) => setPassword(text)}
                />
@@ -83,7 +84,7 @@ const signup = () => {
                {loading
                   ? (<ActivityIndicator size='large' color={Colors.pink} style={{ height: 45, width: '100%', }} />)
                   : (<Button
-                     title='Sign up'
+                     title='SIGN UP'
                      color={Colors.pink}
                      onPress={signUp}
                   />)
@@ -92,7 +93,7 @@ const signup = () => {
 
             <View style={styles.signInTextContainer}>
                <Text style={{ fontWeight: 'bold', color: Colors.text }}>Have an account yet? </Text>
-               <TouchableOpacity onPress={() => router.push('signin')}>
+               <TouchableOpacity onPress={() => router.push('/signin')}>
                   <Text style={{ color: Colors.pink, fontWeight: 'bold' }}>Sign in</Text>
                </TouchableOpacity>
             </View>

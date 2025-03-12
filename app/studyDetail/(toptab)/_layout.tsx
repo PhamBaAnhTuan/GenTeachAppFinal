@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 
 import Lesson from './Lesson';
 import HomeWork from './HomeWork';
@@ -26,9 +26,7 @@ import { Colors } from '@/constants/Colors';
 
 const Tab = createMaterialTopTabNavigator();
 
-const TopTabNavigator = () => {
-   // context
-   const { router } = useStoreContext();
+const TopTabNavigator = () => {;
    // params
    const { param }: any = useGlobalSearchParams();
    // parse params
@@ -43,6 +41,7 @@ const TopTabNavigator = () => {
          >
             <Header
                title={selectedCourse.name}
+               backMethod={()=> router.back()}
                headerRight={null}
             />
 

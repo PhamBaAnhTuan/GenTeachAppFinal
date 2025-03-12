@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 // icons
 import {
    AntDesign, Entypo, Feather, FontAwesome5,
@@ -22,7 +23,7 @@ import { Colors } from '@/constants/Colors';
 
 const ProfileScreen = () => {
    // context
-   const { useRedux, router, dispatch } = useStoreContext();
+   const { useRedux, dispatch } = useStoreContext();
    // redux
    const { user, accessToken, isAuthenticated, video } = useRedux;
    // handle signout
@@ -57,6 +58,7 @@ const ProfileScreen = () => {
          >
             <Header
                title='Your Profile'
+               backMethod={() => router.back()}
                headerRight={null}
             />
 
@@ -80,16 +82,16 @@ const ProfileScreen = () => {
 
                <View style={styles.in4Container}>
                   <View style={styles.textWrap}>
-                     <Text style={[styles.number, {color: Colors.text}]}>0</Text>
-                     <Text style={[styles.text, {color: Colors.text}]}>Follower</Text>
+                     <Text style={[styles.number, { color: Colors.text }]}>0</Text>
+                     <Text style={[styles.text, { color: Colors.text }]}>Follower</Text>
                   </View>
                   <View style={styles.textWrap}>
-                     <Text style={[styles.number, {color: Colors.text}]}>0</Text>
-                     <Text style={[styles.text, {color: Colors.text}]}>Following</Text>
+                     <Text style={[styles.number, { color: Colors.text }]}>0</Text>
+                     <Text style={[styles.text, { color: Colors.text }]}>Following</Text>
                   </View>
                   <View style={styles.textWrap}>
-                     <Text style={[styles.number, {color: Colors.text}]}>0</Text>
-                     <Text style={[styles.text, {color: Colors.text}]}>Post</Text>
+                     <Text style={[styles.number, { color: Colors.text }]}>0</Text>
+                     <Text style={[styles.text, { color: Colors.text }]}>Post</Text>
                   </View>
                </View>
 
@@ -114,7 +116,7 @@ const ProfileScreen = () => {
                   />
 
                   <SettingCard
-                     onPress={() => router.push('video')}
+                     onPress={() => router.push('/video')}
                      name="Videos"
                      icon={<MaterialIcons name="ondemand-video" size={24} color={Colors.text} />}
                   />

@@ -1,7 +1,7 @@
 import { ActivityIndicator, Dimensions, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // icons
 import { AntDesign, FontAwesome, Entypo, Ionicons, Fontisto } from '@expo/vector-icons';
@@ -21,7 +21,7 @@ import { Colors } from '@/constants/Colors';
 
 const Booking = () => {
    // context
-   const { router, useRedux } = useStoreContext();
+   const { useRedux } = useStoreContext();
    // redux
    const { user } = useRedux;
    // params
@@ -63,6 +63,7 @@ const Booking = () => {
 
             <Header
                title={`Booking ${selectedExpert.name}`}
+               backMethod={()=>router.back()}
                headerRight={null}
             />
 

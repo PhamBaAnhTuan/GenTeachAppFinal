@@ -14,7 +14,7 @@ import {
    Ionicons
 } from "@expo/vector-icons";
 // route get params
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 // components
 import Header from '@/components/Header';
 // colors
@@ -22,7 +22,7 @@ import { Colors } from '@/constants/Colors';
 
 const BuyNow = () => {
    // context
-   const { router, useRedux } = useStoreContext();
+   const { useRedux } = useStoreContext();
    // redux
    const { user } = useRedux;
    // params
@@ -65,6 +65,7 @@ const BuyNow = () => {
                   ? 'Purchase'
                   : 'Gift'
                }
+               backMethod={()=> router.back()}
                headerRight={null}
             />
 

@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 // context
 import { useStoreContext } from '@/context/Context';
 // param
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 // actions
 import { updateProfile } from '@/redux/actions';
 // components
@@ -17,7 +17,7 @@ import { Colors } from '@/constants/Colors';
 
 const UpdateProfile = () => {
    // context
-   const { router, dispatch, useRedux, data, setData, resetForm } = useStoreContext();
+   const { dispatch, useRedux, data, setData, resetForm } = useStoreContext();
    // redux
    const { user } = useRedux;
    useEffect(() => {
@@ -52,6 +52,7 @@ const UpdateProfile = () => {
          >
             <Header
                title='Edit your profile'
+               backMethod={() => router.back()}
                headerRight={null}
             />
             <View>

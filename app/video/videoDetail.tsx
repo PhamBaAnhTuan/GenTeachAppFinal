@@ -1,6 +1,6 @@
 import { Alert, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useMemo } from 'react'
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 // context
@@ -16,7 +16,7 @@ import { Colors } from '@/constants/Colors';
 
 const VideoDetail = () => {
    // context
-   const { router, dispatch, useRedux, data, setData } = useStoreContext();
+   const { dispatch, useRedux, data, setData } = useStoreContext();
    // params
    const { param }: any = useGlobalSearchParams();
    // Parse the 'video' params
@@ -50,6 +50,7 @@ const VideoDetail = () => {
          >
             <Header
                title='Video Detail'
+               backMethod={()=> router.back()}
                headerRight={null}
             />
             <View>

@@ -22,7 +22,7 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 export default function HomeScreen() {
   // context
-  const { useRedux, dispatch, router } = useStoreContext();
+  const { useRedux, dispatch } = useStoreContext();
   // redux
   const { isAuthenticated, user, accessToken, video, category, products, cart } = useRedux;
   // url
@@ -63,17 +63,11 @@ export default function HomeScreen() {
   // video
   const arr = [1, 2, 3]
   const statusBar: any = Platform.OS === 'android' ? StatusBar.currentHeight : 44
-  const renderItem = ({ item, index }: any) => (
-    <View style={[{ flex: 1, height: Dimensions.get('screen').height - statusBar - 70 }]} key={index}>
+  const renderItem = ({ item }: any) => (
+    // <>
+    <View style={[{ flex: 1, height: Dimensions.get('screen').height - statusBar - 70 }]} key={item.id}>
 
       <ActivityIndicator size={'large'} color={Colors.lightPink} style={{ alignSelf: 'center', position: 'absolute', top: 350 }} />
-
-      <TouchableOpacity
-        style={styles.personIcon}
-        onPress={() => router.push('profile')}
-      >
-        <Ionicons name="person-outline" size={24} color={Colors.text} />
-      </TouchableOpacity>
 
       <View style={styles.navbarInterAct}>
         <TouchableOpacity style={styles.likeWrap} onPress={handleHeart}>
@@ -135,6 +129,7 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
     </View>
+    // </>
   )
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -144,12 +139,32 @@ export default function HomeScreen() {
         start={{ x: 0, y: 0.5 }}
         end={{ x: 1, y: 1 }}
       >
-        <FlatList
-          data={video}
-          renderItem={renderItem}
-          pagingEnabled
-          showsVerticalScrollIndicator={false}
-        />
+        {video && video.length > 0 ? (
+          <>
+            <FlatList
+              data={video}
+              renderItem={renderItem}
+              pagingEnabled
+              showsVerticalScrollIndicator={false}
+            />
+            <TouchableOpacity
+              style={styles.personIcon}
+              onPress={() => router.push('/profile')}
+            >
+              <Ionicons name="person-outline" size={24} color={Colors.text} />
+            </TouchableOpacity>
+          </>
+        ) : (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ fontSize: 18,fontWeight: 'bold', color: 'black' }}>No data</Text>
+            <TouchableOpacity
+              style={styles.personIcon}
+              onPress={() => router.push('/profile')}
+            >
+              <Ionicons name="person-outline" size={24} color={Colors.text} />
+            </TouchableOpacity>
+          </View>
+        )}
       </LinearGradient>
     </SafeAreaView>
   );
@@ -163,9 +178,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     top: 10,
-    // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 1
   },
 
 

@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Platform, useColorScheme, Text, View, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 // slider
 import { ImageSlider } from "react-native-image-slider-banner";
 // context
@@ -20,7 +21,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function ShopScreen() {
   // context
-  const { dispatch, useRedux, router } = useStoreContext();
+  const { dispatch, useRedux } = useStoreContext();
   // redux
   const { category, products } = useRedux;
   return (
@@ -101,8 +102,8 @@ export default function ShopScreen() {
             </ScrollView>
           </View>
 
-          {category.map((item: any, index: number) => (
-            <View key={index} style={{marginTop: 10}}>
+          {category.map((item: any) => (
+            <View key={item.id} style={{marginTop: 10}}>
               <View style={styles.titleContainer}>
                 <Text style={[styles.titleText, { color: Colors.text }]}>{item.name}</Text>
 
@@ -117,13 +118,13 @@ export default function ShopScreen() {
 
               <ScrollView horizontal={true}>
                 <View style={styles.itemCardWrap}>
-                  {products.map((item: any, index: number) => (
+                  {products.map((item: any) => (
                     <ItemCard
-                      key={index}
+                      key={item.id}
                       onPress={() => router.push(
                         {
                           pathname: '/shopDetail',
-                          params: { param: JSON.stringify(products[index]) }
+                          params: { param: JSON.stringify(item) }
                         }
                       )}
                       img={item.img ? { uri: item.img } : require('../../assets/background/logo1.png')}

@@ -1,10 +1,8 @@
 import { Dimensions, Image, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-// context
-import { useStoreContext } from '@/context/Context';
 // icons
 import {
    FontAwesome,
@@ -21,8 +19,6 @@ import Header from '@/components/Header';
 import { Colors } from '@/constants/Colors';
 
 const StudyDetail = () => {
-   // context
-   const { router } = useStoreContext();
    // params
    const { param }: any = useGlobalSearchParams();
    // parse params
@@ -50,6 +46,7 @@ const StudyDetail = () => {
                
                <Header
                   title={selectedCourse?.name}
+                  backMethod={()=> router.replace('/study')}
                   headerRight={null}
                />
 

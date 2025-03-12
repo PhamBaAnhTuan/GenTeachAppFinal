@@ -6,6 +6,7 @@ import {
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 // context
 import { useStoreContext } from '@/context/Context';
 // actions
@@ -15,6 +16,7 @@ import { Fontisto } from '@expo/vector-icons';
 // components
 import Input from '@/components/form/Input';
 import Button from '@/components/form/Button';
+import InputPassword from '@/components/form/InputPassword';
 // colors
 import { Colors } from '@/constants/Colors';
 import Constants from 'expo-constants'
@@ -23,7 +25,7 @@ const signin = () => {
    const API_URL = Constants.expoConfig?.extra?.API_URL;
    // context
    const {
-      useRedux, dispatch, router,
+      useRedux, dispatch,
       email, userName, password, setEmail, setUserName, setPassword, resetAuth,
       loading, setLoading,
       rememberUser, setRememberUser
@@ -33,9 +35,9 @@ const signin = () => {
    // handle check remember
    const [remember, setRemember]: any = useState('checkbox-passive')
    const handleRemember = () => {
-      remember == 'checkbox-passive' 
-      ? (setRemember('checkbox-active'), setRememberUser(true))
-      : (setRemember('checkbox-passive'), setRememberUser(false));
+      remember == 'checkbox-passive'
+         ? (setRemember('checkbox-active'), setRememberUser(true))
+         : (setRemember('checkbox-passive'), setRememberUser(false));
    };
    // handle signin
    const signIn = () => {
@@ -51,7 +53,7 @@ const signin = () => {
       '\nLoading: ', loading,
    )
    return (
-      <SafeAreaView style={{ flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
          <LinearGradient
             colors={Colors.linear}
             style={{ flex: 1 }}
@@ -64,14 +66,13 @@ const signin = () => {
                <Input
                   title='Username'
                   keyboardType={'email-address'}
-                  secureTextEntry={true}
+                  secureTextEntry={false}
                   value={userName}
                   handleTextChange={(text: string) => setUserName(text)}
                />
-               <Input
+               <InputPassword
                   title='Password'
                   keyboardType={'password'}
-                  secureTextEntry={true}
                   value={password}
                   handleTextChange={(text: string) => setPassword(text)}
                />
@@ -90,18 +91,22 @@ const signin = () => {
 
             <View style={styles.btnContainer}>
                {loading
-                  ? (<ActivityIndicator size='large' color={Colors.pink} style={{height: 45, width: '100%',}} />)
-                  : (<Button
-                     title='Sign in'
+                  ? <ActivityIndicator size='large' color={Colors.pink} style={{ height: 45, width: '100%', }} />
+                  // : <Button
+                  //    title='sign in'
+                  //    onPress={signIn}
+                  // ></Button>
+                  :<Button
+                     title='SIGN IN'
                      color={Colors.pink}
                      onPress={signIn}
-                  />)
+                  />
                }
             </View>
 
             <View style={styles.signUpTextContainer}>
                <Text style={{ fontWeight: 'bold', color: Colors.text }}>Not a member? </Text>
-               <TouchableOpacity onPress={() => router.push('signup')}>
+               <TouchableOpacity onPress={() => router.push('/signup')}>
                   <Text style={{ color: Colors.pink, fontWeight: 'bold' }}>Sign up</Text>
                </TouchableOpacity>
             </View>

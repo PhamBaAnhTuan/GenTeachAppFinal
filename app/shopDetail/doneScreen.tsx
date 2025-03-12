@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // param
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 // context
 import { useStoreContext } from '@/context/Context';
 // components
@@ -14,8 +14,6 @@ import Button from '@/components/form/Button';
 import { Colors } from '@/constants/Colors';
 
 const DoneScreen = () => {
-   // context
-   const { router } = useStoreContext();
    // params
    const { type, name, expertName }: any = useGlobalSearchParams();
    // 
@@ -33,8 +31,8 @@ const DoneScreen = () => {
    // Back
    const goBack = () => {
       type === 'booking'
-         ? router.push('/chat')
-         : router.push('/shop')
+         ? router.replace('/chat')
+         : router.replace('/shop')
    }
    return (
       <SafeAreaView style={{ flex: 1 }}>

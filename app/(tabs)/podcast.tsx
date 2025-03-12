@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 // context
 import { useStoreContext } from '@/context/Context';
 // components
@@ -12,7 +13,7 @@ import { Colors } from '@/constants/Colors';
 
 export default function PodcastScreen() {
    // context
-   const { useRedux, router } = useStoreContext();
+   const { useRedux } = useStoreContext();
    // redux
    const { podcast } = useRedux;
    return (
@@ -36,12 +37,12 @@ export default function PodcastScreen() {
 
                   <View style={styles.podcastContainer}>
                      <ScrollView horizontal={true}>
-                        {podcast.map((item: any, index: number) => (
+                        {podcast.map((item: any) => (
                            <PodcastCard
-                              key={index}
+                              key={item.id}
                               onPress={() => router.push({
                                  pathname: '/podcastDetail',
-                                 params: { param: JSON.stringify(podcast[index]) }
+                                 params: { param: JSON.stringify(item) }
                               })}
                               img={item.img ? { uri: item.img } : require('../../assets/background/logo1.png')}
                               name={item.name}
@@ -63,12 +64,12 @@ export default function PodcastScreen() {
 
                   <View style={styles.podcastContainer}>
                      <ScrollView horizontal={true}>
-                        {podcast.map((item: any, index: number) => (
+                        {podcast.map((item: any) => (
                            <PodcastCard
-                              key={index}
+                              key={item.id}
                               onPress={() => router.push({
                                  pathname: '/podcastDetail',
-                                 params: { param: JSON.stringify(podcast[index]) }
+                                 params: { param: JSON.stringify(item) }
                               })}
                               img={item.img ? { uri: item.img } : require('../../assets/background/logo1.png')}
                               name={item.name}
@@ -90,12 +91,12 @@ export default function PodcastScreen() {
 
                   <View style={styles.podcastContainer}>
                      <ScrollView horizontal={true}>
-                        {podcast.map((item: any, index: number) => (
+                        {podcast.map((item: any) => (
                            <PodcastCard
-                              key={index}
+                              key={item.id}
                               onPress={() => router.push({
                                  pathname: '/podcastDetail',
-                                 params: { param: JSON.stringify(podcast[index]) }
+                                 params: { param: JSON.stringify(item) }
                               })}
                               img={item.img ? { uri: item.img } : require('../../assets/background/logo1.png')}
                               name={item.name}

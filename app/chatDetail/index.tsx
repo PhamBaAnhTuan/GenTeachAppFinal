@@ -1,7 +1,7 @@
 import { ActivityIndicator, Dimensions, FlatList, Image, KeyboardAvoidingView, Platform, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // context
 import { useStoreContext } from '@/context/Context';
@@ -15,8 +15,6 @@ import axios from 'axios';
 import { Colors } from '@/constants/Colors';
 
 const ChatDetail = () => {
-   // context
-   const { router } = useStoreContext();
    // params
    const { param }: any = useGlobalSearchParams();
    // parse the 'video' params
@@ -90,7 +88,7 @@ const ChatDetail = () => {
             <View style={styles.header} >
 
                <View style={styles.headerLeft}>
-                  <TouchableOpacity onPress={() => router.back()} >
+                  <TouchableOpacity onPress={() => router.replace('/chat')} >
                      <Ionicons name="chevron-back" size={21} color="black" />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => router.push({

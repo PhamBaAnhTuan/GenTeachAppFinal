@@ -14,7 +14,7 @@ import {
    Ionicons
 } from "@expo/vector-icons";
 // route get params
-import { useGlobalSearchParams } from 'expo-router';
+import { useGlobalSearchParams, router } from 'expo-router';
 // components
 import Header from '@/components/Header';
 // actions
@@ -24,11 +24,11 @@ import { Colors } from '@/constants/Colors';
 
 const ShopDetail = () => {
    // context
-   const { router, useRedux, dispatch } = useStoreContext();
+   const { useRedux, dispatch } = useStoreContext();
    // redux
    // params
    const { param }: any = useGlobalSearchParams();
-   const item = JSON.parse(param)
+   const item = JSON.parse(param);
    // Handle follow
    const [follow, setFollow] = useState('Follow');
    const handleFollow = () => {
@@ -53,6 +53,7 @@ const ShopDetail = () => {
             <ScrollView showsVerticalScrollIndicator={false}>
                <Header
                   title={item.name}
+                  backMethod={()=>router.replace('/shop')}
                   headerRight={
                      <TouchableOpacity onPress={() => router.push('/cart')}>
                         <Feather name="shopping-cart" size={21} color={Colors.text} />

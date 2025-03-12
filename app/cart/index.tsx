@@ -2,6 +2,7 @@ import { Alert, Dimensions, Image, KeyboardAvoidingView, ScrollView, StyleSheet,
 import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 // context
 import { useStoreContext } from '@/context/Context';
 // icons
@@ -16,7 +17,7 @@ import { Colors } from '@/constants/Colors';
 
 const Cart = () => {
    // context
-   const { heme, router, useRedux, dispatch } = useStoreContext();
+   const { heme, useRedux, dispatch } = useStoreContext();
    // redux
    const { cart } = useRedux;
    // Handle remove
@@ -58,15 +59,16 @@ const Cart = () => {
          >
             <Header
                title='Your Cart'
+               backMethod={()=> router.replace('/shop')}
                headerRight={null}
             />
             <ScrollView showsVerticalScrollIndicator={false}>
 
                {cart
                   ? <View >
-                     {cart.map((item: any, index: number) => (
+                     {cart.map((item: any) => (
                         <ListCart
-                           key={index}
+                           key={item.id}
                            itemImg={item.img ? { uri: item.img } : require('../../assets/banner/banner6.jpg')}
                            itemName={item.name}
                            discount={item.discount}
@@ -77,13 +79,13 @@ const Cart = () => {
                               () => {
                                  router.push({
                                     pathname: '/shopDetail/buynow',
-                                    params: {param: JSON.stringify(cart[index]), type: 'buy'}
+                                    params: {param: JSON.stringify(item), type: 'buy'}
                                  })
                               }
                            }
                            delete={
                               () => {
-                                 setItem(cart[index]);
+                                 setItem(item);
                                  setIsRemoving(true);
                               }
                            }

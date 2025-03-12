@@ -37,9 +37,9 @@ export default function StudyScreen() {
 
                   <View style={styles.topicCardContainer}>
                      <ScrollView horizontal={true}>
-                        {topic.map((topic: any, index: number) => (
+                        {topic.map((topic: any) => (
                            <TopicCard
-                              key={index}
+                              key={topic.id}
                               onPress={null}
                               topicTitle={topic.name}
                            />
@@ -58,13 +58,13 @@ export default function StudyScreen() {
 
                   <View style={styles.courseContainer}>
                      <ScrollView horizontal={true}>
-                        {course.map((item: any, index: number) => (
+                        {course.map((item: any) => (
                            <CourseCard
-                              key={index}
+                              key={item.id}
                               onPress={() => router.push(
                                  {
                                     pathname: '/studyDetail',
-                                    params: { param: JSON.stringify(course[index]) }
+                                    params: { param: JSON.stringify(item) }
                                  }
                               )}
                               img={item.img ? { uri: item.img } : require('../../assets/banner/banner4.jpg')}
@@ -91,13 +91,13 @@ export default function StudyScreen() {
 
                   <View style={styles.courseContainer}>
                      <ScrollView horizontal={true}>
-                        {course.map((item: any, index: number) => (
+                        {course.map((item: any) => (
                            <CourseCard
-                              key={index}
+                              key={item.id}
                               onPress={() => router.push(
                                  {
                                     pathname: '/studyDetail',
-                                    params: { param: JSON.stringify(course[index]) }
+                                    params: { param: JSON.stringify(item) }
                                  }
                               )}
                               img={item.img ? { uri: item.img } : require('../../assets/banner/banner4.jpg')}
@@ -124,13 +124,13 @@ export default function StudyScreen() {
 
                   <View style={styles.courseContainer}>
                      <ScrollView horizontal={true}>
-                        {course.map((item: any, index: number) => (
+                        {course.map((item: any) => (
                            <CourseCard
-                              key={index}
+                              key={item.id}
                               onPress={() => router.push(
                                  {
                                     pathname: '/studyDetail',
-                                    params: { param: JSON.stringify(course[index]) }
+                                    params: { param: JSON.stringify(item) }
                                  }
                               )}
                               img={item.img ? { uri: item.img } : require('../../assets/banner/banner4.jpg')}
